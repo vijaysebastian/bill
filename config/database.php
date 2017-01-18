@@ -55,9 +55,9 @@ return [
         'mysql' => [
             'driver'    => 'mysql',
             'host'      => env('DB_HOST', 'localhost'),
-            'database'  => env('DB_DATABASE', 'faveohel_agora'),
-            'username'  => env('DB_USERNAME', 'faveohel_agora'),
-            'password'  => env('DB_PASSWORD', '[0gwB{vQJ6{N'),
+            'database'  => env('DB_DATABASE', 'bill-agora'),
+            'username'  => env('DB_USERNAME', 'root'),
+            'password'  => env('DB_PASSWORD', 'mysql'),
             'charset'   => 'utf8',
             'collation' => 'utf8_unicode_ci',
             'prefix'    => '',
