@@ -129,7 +129,7 @@ use AuthenticatesAndRegistersUsers;
             $pass = $request->input('password');
             $country = $request->input('country');
             $currency = 'INR';
-            //$location = \GeoIP::getLocation();
+            $location = \GeoIP::getLocation();
             if ($country == 'IN') {
                 $currency = 'INR';
             } else {
