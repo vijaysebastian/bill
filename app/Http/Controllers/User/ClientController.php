@@ -40,13 +40,15 @@ class ClientController extends Controller {
         $email = $request->input('email');
         $country = $request->input('country');
         $industry = $request->input('industry');
+        $company_type = $request->input('company_type');
+        $company_size = $request->input('company_size');
 
         $count_users = $this->user->get()->count();
         $pro_editions = $this->soldEdition('Faveo Helpdesk Pro');
         $community = $this->soldEdition('faveo helpdesk community');
         $product_count = $this->productCount();
 
-        return view('themes.default1.user.client.index', compact('name', 'username', 'company', 'mobile', 'email', 'country', 'count_users', 'pro_editions', 'community', 'product_count','industry'));
+        return view('themes.default1.user.client.index', compact('name', 'username', 'company', 'mobile', 'email', 'country', 'count_users', 'pro_editions', 'community', 'product_count','industry','company_type','company_size'));
     }
 
     /**
@@ -60,11 +62,12 @@ class ClientController extends Controller {
         $email = $request->input('email');
         $country = $request->input('country');
         $industry = $request->input('industry');
-
+        $company_type = $request->input('company_type');
+        $company_size = $request->input('company_size');
 //$user = new User;
 // $user = $this->user->select('id', 'first_name', 'last_name', 'email', 'created_at', 'active')->orderBy('created_at', 'desc');
 //dd($user);
-        $user = $this->advanceSearch($name, $username, $company, $mobile, $email, $country,$industry);
+        $user = $this->advanceSearch($name, $username, $company, $mobile, $email, $country,$industry,$company_type,$company_size);
 
         return \Datatable::query($user)
                         ->addColumn('#', function ($model) {
@@ -234,7 +237,7 @@ class ClientController extends Controller {
         return response()->json(compact('options'));
     }
 
-    public function advanceSearch($name = '', $username = '', $company = '', $mobile = '', $email = '', $country = '',$industry="") {
+    public function advanceSearch($name = '', $username = '', $company = '', $mobile = '', $email = '', $country = '',$industry="",$company_type="",$company_size="") {
         $join = $this->user;
         if ($name) {
             $join = $join->where('first_name', 'LIKE', '%' . $name . '%')
@@ -257,6 +260,12 @@ class ClientController extends Controller {
         }
         if ($industry) {
             $join = $join->where('bussiness', $industry);
+        }
+        if ($company_type) {
+            $join = $join->where('company_type', $company_type);
+        }
+        if ($company_size) {
+            $join = $join->where('company_size', $company_size);
         }
 
         $join = $join->select('id', 'first_name', 'last_name', 'email', 'created_at', 'active');

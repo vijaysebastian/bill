@@ -339,6 +339,16 @@
                                             <strong>{{Lang::get('message.currency')}} :</strong> <span class="pull-right">{{$client->currency}}</span>
                                         </a>
                                     </li>
+                                     <li>
+                                        <a href="#">
+                                            <strong>Company Type :</strong> <span class="pull-right">{{str_replace('-',' ',ucfirst($client->company_type))}}</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <strong>Company Size :</strong> <span class="pull-right">{{str_replace('-',' ',ucfirst($client->company_size))}}</span>
+                                        </a>
+                                    </li>
                                 </ul>
                             </div>
                         </div>

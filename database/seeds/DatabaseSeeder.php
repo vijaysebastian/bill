@@ -54,6 +54,9 @@ class DatabaseSeeder extends Seeder
 
         $this->call('GitHubTableSeeder');
         $this->command->info('Github table seeded!');
+        
+        $this->call(CompanySize::class);
+        $this->call(CompanyType::class);
     }
 }
 

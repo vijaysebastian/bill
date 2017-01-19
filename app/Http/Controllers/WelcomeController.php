@@ -1,37 +1,30 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Http\Request;
+use App\Model\Common\Country;
 
 class WelcomeController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Welcome Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller renders the "marketing page" for the application and
-    | is configured to only allow guests. Like most of the other sample
-    | controllers, you are free to modify or remove it as you desire.
-    |
-    */
-
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('guest');
+    private $request;
+    
+    public function __construct(Request $request) {
+        $this->request = $request;
     }
 
-    /**
-     * Show the application welcome screen to the user.
-     *
-     * @return Response
-     */
-    public function index()
-    {
-        return view('welcome');
+    public function getCode(){
+        $country = new Country();
+        $country_iso2 = $this->request->get('country_id');
+        $model = $country->where('country_code_char2',$country_iso2)->select('phonecode')->first();
+        return $model->phonecode;
+    }
+    public function getCurrency(){
+        $currency = "INR";
+        $country_iso2 = $this->request->get('country_id');
+        if($country_iso2!="IN"){
+            $currency = "USD";
+        }
+        return $currency;
+        
     }
 }

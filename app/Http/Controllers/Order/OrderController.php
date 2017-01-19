@@ -352,6 +352,7 @@ class OrderController extends Controller {
                 foreach ($invoice_items as $item) {
                     if ($item) {
                         $product = $this->getProductByName($item->product_name)->id;
+                        $version = $this->getProductByName($item->product_name)->version;
                         $price = $item->subtotal;
                         $qty = $item->quantity;
                         $serial_key = $this->checkProductForSerialKey($product);
@@ -373,7 +374,7 @@ class OrderController extends Controller {
                         ]);
                         $this->addOrderInvoiceRelation($invoiceid, $order->id);
                         if ($this->checkOrderCreateSubscription($order->id) == true) {
-                            $this->addSubscription($order->id, $plan_id);
+                            $this->addSubscription($order->id, $plan_id,$version);
                         }
                         $this->sendOrderMail($user_id, $order->id,$item->id);
                     }
@@ -404,7 +405,7 @@ class OrderController extends Controller {
      *
      * @throws \Exception
      */
-    public function addSubscription($orderid, $planid) {
+    public function addSubscription($orderid, $planid,$version="") {
         try {
             if ($planid != 0) {
                 $days = $this->plan->where('id', $planid)->first()->days;
@@ -418,7 +419,7 @@ class OrderController extends Controller {
                     $ends_at = '';
                 }
                 $user_id = $this->order->find($orderid)->client;
-                $this->subscription->create(['user_id' => $user_id, 'plan_id' => $planid, 'order_id' => $orderid, 'ends_at' => $ends_at]);
+                $this->subscription->create(['user_id' => $user_id, 'plan_id' => $planid, 'order_id' => $orderid, 'ends_at' => $ends_at,'version'=>$version]);
             }
         } catch (\Exception $ex) {
             //dd($ex);

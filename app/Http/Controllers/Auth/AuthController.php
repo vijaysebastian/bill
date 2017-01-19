@@ -127,9 +127,10 @@ use AuthenticatesAndRegistersUsers;
     public function postRegister(ProfileRequest $request, User $user, AccountActivate $activate) {
         try {
             $pass = $request->input('password');
+            $country = $request->input('country');
             $currency = 'INR';
-            $location = \GeoIP::getLocation();
-            if ($location['country'] == 'India') {
+            //$location = \GeoIP::getLocation();
+            if ($country == 'IN') {
                 $currency = 'INR';
             } else {
                 $currency = 'USD';

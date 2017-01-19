@@ -121,6 +121,18 @@
                 {!! Form::select('industry',[''=>'select','New'=>DB::table('bussinesses')->lists('name','short'),'old'=>$old],null,['class' => 'form-control']) !!}
 
             </div>
+            <div class="col-md-2 form-group">
+                <!-- first name -->
+                {!! Form::label('company_type','Company Type') !!}
+                {!! Form::select('company_type',[''=>'select','Countries'=>DB::table('company_types')->lists('name','short')],null,['class' => 'form-control']) !!}
+
+            </div>
+            <div class="col-md-2 form-group">
+                <!-- first name -->
+                {!! Form::label('company_size','Company Size') !!}
+                {!! Form::select('company_size',[''=>'select','Countries'=>DB::table('company_sizes')->lists('name','short')],null,['class' => 'form-control']) !!}
+
+            </div>
 </div>
 <div class='row'>
 
@@ -187,7 +199,7 @@
             <div class="col-md-12">
                 {!! Datatable::table()
                 ->addColumn('<input type="checkbox" class="checkbox-toggle">','Name','Email','Registered On','Status','Action')
-                ->setUrl("get-clients?name=$name&username=$username&company=$company&mobile=$mobile&email=$email&country=$country&industry=$industry")
+                ->setUrl("get-clients?name=$name&username=$username&company=$company&mobile=$mobile&email=$email&country=$country&industry=$industry&company_type=$company_type&company_size=$company_size")
                 ->setOptions([
                 "order"=> [ 3, "desc" ],
                 "dom" => "Bfrtip",

@@ -150,25 +150,50 @@ $mobile_code = \App\Http\Controllers\Front\CartController::getMobileCodeByIso($l
                                     </div>
                                 </div>
                             </div>
+                            <div class='row'>
+                                <?php
+                                $type = DB::table('company_types')->pluck('name', 'short');
+                                $size = DB::table('company_sizes')->pluck('name', 'short');
+                                ?>
+                                <div class="col-md-6 form-group {{ $errors->has('role') ? 'has-error' : '' }}">
+                                    <!-- email -->
+                                    {!! Form::label('company_type','Company Type',['class'=>'required']) !!}
+                                    {!! Form::select('company_type',[''=>'Select','Company Types'=>$type],null,['class' => 'form-control input-lg']) !!}
+
+                                </div>
+                                <div class="col-md-6 form-group {{ $errors->has('role') ? 'has-error' : '' }}">
+                                    <!-- email -->
+                                    {!! Form::label('company_size','Company Size',['class'=>'required']) !!}
+                                    {!! Form::select('company_size',[''=>'Select','Company Sizes'=>$size],null,['class' => 'form-control input-lg']) !!}
+
+                                </div>
+                            </div>
                             <div class="row">
                                 <div class="form-group">
-                                    <div class="col-md-3 {{ $errors->has('mobile_code') ? 'has-error' : '' }}">
-                                        <label class="required">Code</label>
-                                        {!! Form::text('mobile_code',$mobile_code,['class'=>'form-control input-lg']) !!}
-                                    </div>
-                                    <div class="col-md-5 {{ $errors->has('mobile') ? 'has-error' : '' }}">
-                                        <label class="required">Mobile No</label>
-                                        {!! Form::text('mobile',null,['class'=>'form-control input-lg']) !!}
-                                    </div>
+
 
                                     <div class="form-group">
-                                        <div class="col-md-4 {{ $errors->has('country') ? 'has-error' : '' }}">
+                                        <div class="col-md-12 {{ $errors->has('country') ? 'has-error' : '' }}">
                                             {!! Form::label('country',Lang::get('message.country'),['class'=>'required']) !!}
-<?php $countries = \App\Model\Common\Country::lists('country_name', 'country_code_char2')->toArray(); ?>
-                                            {!! Form::select('country',[''=>'Select a Country','Countries'=>$countries],$country,['class' => 'form-control input-lg','onChange'=>'getState(this.value);']) !!}
+                                            <?php $countries = \App\Model\Common\Country::lists('country_name', 'country_code_char2')->toArray(); ?>
+                                            {!! Form::select('country',[''=>'Select a Country','Countries'=>$countries],$country,['class' => 'form-control input-lg','onChange'=>'getCountryAttr(this.value);','id'=>'country']) !!}
 
                                         </div>
+
                                     </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 form-group {{ $errors->has('mobile_code') ? 'has-error' : '' }}">
+                                    <label class="required">Country code</label>
+                                    {!! Form::hidden('mobile_code',null,['id'=>'mobile_code_hidden']) !!}
+                                    {!! Form::text('mobile_code',null,['class'=>'form-control input-lg','disabled','id'=>'mobile_code']) !!}
+                                </div>
+                                <div class="col-md-8 form-group {{ $errors->has('mobile') ? 'has-error' : '' }}">
+                                    <!-- mobile -->
+                                    {!! Form::label('mobile',Lang::get('message.mobile'),['class'=>'required']) !!}
+                                    {!! Form::text('mobile',null,['class' => 'form-control input-lg']) !!}
+
                                 </div>
                             </div>
                             <div class="row">
@@ -254,7 +279,22 @@ $mobile_code = \App\Http\Controllers\Front\CartController::getMobileCodeByIso($l
         </div>
     </div>
 </div>
+@stop 
+@section('script')
 <script>
+
+    $(document).ready(function () {
+        var val = $("#country").val();
+        getCountryAttr(val);
+    });
+
+    function getCountryAttr(val) {
+        getState(val);
+        getCode(val);
+//        getCurrency(val);
+
+    }
+
     function getState(val) {
 
 
@@ -267,6 +307,26 @@ $mobile_code = \App\Http\Controllers\Front\CartController::getMobileCodeByIso($l
             }
         });
     }
+    function getCode(val) {
+        $.ajax({
+            type: "GET",
+            url: "{{url('get-code')}}",
+            data: 'country_id=' + val,
+            success: function (data) {
+                $("#mobile_code").val(data);
+                $("#mobile_code_hidden").val(data);
+            }
+        });
+    }
+    function getCurrency(val) {
+        $.ajax({
+            type: "GET",
+            url: "{{url('get-currency')}}",
+            data: 'country_id=' + val,
+            success: function (data) {
+                $("#currency").val(data);
+            }
+        });
+    }
 </script>
-
 @stop

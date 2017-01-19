@@ -352,6 +352,9 @@ Route::post('client/renew/{id}', 'Order\RenewController@renewByClient');
 Route::post('serial', 'HomeController@serial');
 Route::get('generate-keys', 'HomeController@createEncryptionKeys');
 
+Route::get('get-code','WelcomeController@getCode');
+Route::get('get-currency','WelcomeController@getCurrency');
+
 /**
  * Api
  */
