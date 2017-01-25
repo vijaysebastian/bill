@@ -190,6 +190,11 @@
                                 <i class="fa fa-gears"></i> <span>{{Lang::get('message.settings')}}</span>
                             </a>
                         </li>
+                        <li>
+                            <a href="{{url('country-count')}}">
+                                <i class="fa fa-gears"></i> <span>Report</span>
+                            </a>
+                        </li>
                         
 <!--                        <li class="treeview">
                             <a href="#">

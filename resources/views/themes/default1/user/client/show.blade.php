@@ -349,6 +349,11 @@
                                             <strong>Company Size :</strong> <span class="pull-right">{{str_replace('-',' ',ucfirst($client->company_size))}}</span>
                                         </a>
                                     </li>
+                                     <li>
+                                        <a href="#">
+                                            <strong>IP :</strong> <span class="pull-right">{{$client->ip}}</span>
+                                        </a>
+                                    </li>
                                 </ul>
                             </div>
                         </div>

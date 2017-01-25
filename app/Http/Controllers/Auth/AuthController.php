@@ -50,11 +50,11 @@ use AuthenticatesAndRegistersUsers;
 
     public function getLogin() {
         try {
-            $bussinesses = \App\Model\Common\Bussiness::lists('name','short')->toArray();
-            return view('themes.default1.front.auth.login-register',compact('bussinesses'));
+            $bussinesses = \App\Model\Common\Bussiness::lists('name', 'short')->toArray();
+            return view('themes.default1.front.auth.login-register', compact('bussinesses'));
         } catch (\Exception $ex) {
             //dd($ex);
-            return redirect('home')->with('fails',$ex->getMessage());
+            return redirect('home')->with('fails', $ex->getMessage());
         }
     }
 
@@ -129,7 +129,8 @@ use AuthenticatesAndRegistersUsers;
             $pass = $request->input('password');
             $country = $request->input('country');
             $currency = 'INR';
-            $location = \GeoIP::getLocation();
+            $ip = $request->ip();
+            $location = \GeoIP::getLocation($ip);
             if ($country == 'IN') {
                 $currency = 'INR';
             } else {
@@ -141,24 +142,21 @@ use AuthenticatesAndRegistersUsers;
             $password = \Hash::make($pass);
             $user->password = $password;
             $user->role = 'user';
+            $user->ip = $location['ip'];
             $user->currency = $currency;
             $user->timezone_id = \App\Http\Controllers\Front\CartController::getTimezoneByName($location['timezone']);
             $user->fill($request->except('password'))->save();
             $this->sendActivation($user->email, $request->method(), $pass);
-            //$result = ['success' => \Lang::get('message.to-activate-your-account-please-click-on-the-link-that-has-been-send-to-your-email')];
             return redirect()->back()->with('success', \Lang::get('message.to-activate-your-account-please-click-on-the-link-that-has-been-send-to-your-email'));
         } catch (\Exception $ex) {
             return redirect()->back()->with('fails', $ex->getMessage());
-            //$result = ['fails' => $ex->getMessage()];
         }
-
-        //return response()->json(compact('result'));
     }
 
     public function sendActivationByGet($email, Request $request) {
         try {
             $mail = $this->sendActivation($email, $request->method());
-            if ($mail=="success") {
+            if ($mail == "success") {
                 return redirect('auth/login')->with('success', 'Activation link has sent to your email address');
             }
         } catch (\Exception $ex) {

@@ -40,6 +40,7 @@ class CreateUsersTable extends Migration {
 			$table->integer('timezone_id')->default(114);
 			$table->string('remember_token', 100)->nullable();
                         $table->string('country')->default('IN');
+                        $table->string('ip')->nullable();
 			$table->timestamps();
 			
 		});

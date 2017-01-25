@@ -175,7 +175,7 @@ $mobile_code = \App\Http\Controllers\Front\CartController::getMobileCodeByIso($l
                                     <div class="form-group">
                                         <div class="col-md-12 {{ $errors->has('country') ? 'has-error' : '' }}">
                                             {!! Form::label('country',Lang::get('message.country'),['class'=>'required']) !!}
-                                            <?php $countries = \App\Model\Common\Country::lists('country_name', 'country_code_char2')->toArray(); ?>
+                                            <?php $countries = \App\Model\Common\Country::lists('nicename', 'country_code_char2')->toArray(); ?>
                                             {!! Form::select('country',[''=>'Select a Country','Countries'=>$countries],$country,['class' => 'form-control input-lg','onChange'=>'getCountryAttr(this.value);','id'=>'country']) !!}
 
                                         </div>

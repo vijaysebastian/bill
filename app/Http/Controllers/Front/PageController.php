@@ -246,6 +246,23 @@ class PageController extends Controller {
     }
 
     public function cart() {
+        $location = \GeoIP::getLocation();
+        if ($location['country'] == 'India') {
+            $currency = 'INR';
+        } else {
+            $currency = 'USD';
+        }
+        if (\Auth::user()) {
+            $currency = 'INR';
+            $user_currency = \Auth::user()->currency;
+            if ($user_currency == 1 || $user_currency == 'USD') {
+                $currency = 'USD';
+            }
+        }
+        \Session::put('currency', $currency);
+        if (!\Session::has('currency')) {
+            \Session::put('currency', 'INR');
+        }
         $pages = $this->page->find(1);
         $data = $pages->content;
         $product = new \App\Model\Product\Product();
@@ -266,7 +283,6 @@ class PageController extends Controller {
             }
             $template = $this->transform('cart', $data, $trasform);
         }
-
 
 
         return view('themes.default1.common.template.shoppingcart', compact('template'));

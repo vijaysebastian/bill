@@ -355,6 +355,8 @@ Route::get('generate-keys', 'HomeController@createEncryptionKeys');
 Route::get('get-code','WelcomeController@getCode');
 Route::get('get-currency','WelcomeController@getCurrency');
 
+Route::get('country-count','WelcomeController@countryCount');
+
 /**
  * Api
  */
