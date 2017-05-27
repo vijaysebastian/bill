@@ -39,7 +39,12 @@ active
                             {!! Form::text('last_name',null,['class' => 'form-control']) !!}
 
                         </div>
+                        <div class="form-group {{ $errors->has('user_name') ? 'has-error' : '' }}">
+                            <!-- mobile -->
+                            {!! Form::label('user_name',Lang::get('message.user_name')) !!}
+                            {!! Form::text('user_name',null,['class' => 'form-control']) !!}
 
+                        </div>
 
                         <div class="form-group">
                             <!-- email -->
@@ -55,12 +60,35 @@ active
                             {!! Form::text('company',null,['class' => 'form-control']) !!}
 
                         </div>
+                        <div class="form-group {{ $errors->has('bussiness') ? 'has-error' : '' }}">
+                            <!-- company -->
+                            {!! Form::label('bussiness','Bussiness') !!}
+                            {!! Form::select('bussiness',[''=>'Select','Bussinesses'=>$bussinesses],null,['class' => 'form-control']) !!}
+
+                        </div>
+                        <?php
+                        $type = DB::table('company_types')->pluck('name', 'short');
+                        $size = DB::table('company_sizes')->pluck('name', 'short');
+                        ?>
+                        <div class="form-group {{ $errors->has('role') ? 'has-error' : '' }}">
+                            <!-- email -->
+                            {!! Form::label('company_type','Company Type',['class'=>'required']) !!}
+                            {!! Form::select('company_type',[''=>'Select','Company Types'=>$type],null,['class' => 'form-control']) !!}
+
+                        </div>
+                        <div class="form-group {{ $errors->has('role') ? 'has-error' : '' }}">
+                            <!-- email -->
+                            {!! Form::label('company_size','Company Size',['class'=>'required']) !!}
+                            {!! Form::select('company_size',[''=>'Select','Company Sizes'=>$size],null,['class' => 'form-control']) !!}
+
+                        </div>
+
                         <div class="form-group {{ $errors->has('mobile_code') ? 'has-error' : '' }}">
-                        <label class="required">Country code</label>
-                        {!! Form::text('mobile_code',null,['class'=>'form-control']) !!}
-                    </div>
+                            <label class="required">Country code</label>
+                            {!! Form::text('mobile_code',null,['class'=>'form-control']) !!}
+                        </div>
                         <div class="form-group {{ $errors->has('mobile') ? 'has-error' : '' }}">
-                            
+
                             <!-- mobile -->
                             {!! Form::label('mobile',Lang::get('message.mobile')) !!}
                             {!! Form::text('mobile',null,['class' => 'form-control']) !!}
@@ -94,7 +122,7 @@ active
                             <div class="col-md-6 form-group {{ $errors->has('country') ? 'has-error' : '' }}">
                                 <!-- name -->
                                 {!! Form::label('country',Lang::get('message.country')) !!}
-                                 <?php $countries = \App\Model\Common\Country::lists('country_name', 'country_code_char2')->toArray(); ?>
+                                <?php $countries = \App\Model\Common\Country::lists('country_name', 'country_code_char2')->toArray(); ?>
                                 {!! Form::select('country',[''=>'Select a Country','Countries'=>$countries],null,['class' => 'form-control','onChange'=>'getState(this.value);']) !!}
 
                             </div>
@@ -108,16 +136,21 @@ active
                                     @endif
                                     <option value="">Select State</option>
                                     @foreach($states as $key=>$value)
-                                        <option value="{{$key}}">{{$value}}</option>
+                                    <option value="{{$key}}">{{$value}}</option>
                                     @endforeach
-                                    
+
                                 </select>
 
                             </div>
 
 
                         </div>
+                        <div class="form-group {{ $errors->has('skype') ? 'has-error' : '' }}">
+                            <!-- mobile -->
+                            {!! Form::label('skype','skype') !!}
+                            {!! Form::text('skype',null,['class' => 'form-control']) !!}
 
+                        </div>
                         <div class="form-group {{ $errors->has('zip') ? 'has-error' : '' }}">
                             <!-- mobile -->
                             {!! Form::label('zip',Lang::get('message.zip')) !!}
@@ -171,6 +204,16 @@ active
                             </div>
                         </div>
                         {!! Form::close() !!}
+                        <?php
+                        $manager = $user->manager()->select('first_name','last_name','email','mobile_code','mobile','skype')->first();
+                        ?>
+                        @if($manager)
+                        <h3>Account Manager</h3>
+                        <p>Name : {{$manager->first_name}} {{$manager->last_name}}</p>
+                        <p>Email : {{$manager->email}}</p>
+                        <p>Mobile : {{$manager->mobile_code}}{{$manager->mobile}}</p>
+                        <p>Skype : {{$manager->skype}}</p>
+                        @endif
                     </div>
                 </div>
             </div>

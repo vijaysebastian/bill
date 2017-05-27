@@ -106,23 +106,29 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-4 form-group {{ $errors->has('role') ? 'has-error' : '' }}">
+                    <div class="col-md-3 form-group {{ $errors->has('role') ? 'has-error' : '' }}">
                         <!-- email -->
                         {!! Form::label('role',Lang::get('message.role')) !!}
                         {!! Form::select('role',['user'=>'User','admin'=>'Admin'],null,['class' => 'form-control']) !!}
+
+                    </div>
+                    <div class="col-md-3 form-group {{ $errors->has('position') ? 'has-error' : '' }}">
+                        <!-- email -->
+                        {!! Form::label('position','Position') !!}
+                        {!! Form::select('position',[''=>'Select','manager'=>'Manager'],null,['class' => 'form-control']) !!}
 
                     </div>
                     <?php
                     $type = DB::table('company_types')->pluck('name','short');
                     $size = DB::table('company_sizes')->pluck('name','short');
                     ?>
-                     <div class="col-md-4 form-group {{ $errors->has('role') ? 'has-error' : '' }}">
+                     <div class="col-md-3 form-group {{ $errors->has('role') ? 'has-error' : '' }}">
                         <!-- email -->
                         {!! Form::label('company_type','Company Type',['class'=>'required']) !!}
                         {!! Form::select('company_type',[''=>'Select','Company Types'=>$type],null,['class' => 'form-control']) !!}
 
                     </div>
-                     <div class="col-md-4 form-group {{ $errors->has('role') ? 'has-error' : '' }}">
+                     <div class="col-md-3 form-group {{ $errors->has('role') ? 'has-error' : '' }}">
                         <!-- email -->
                         {!! Form::label('company_size','Company Size',['class'=>'required']) !!}
                         {!! Form::select('company_size',[''=>'Select','Company Sizes'=>$size],null,['class' => 'form-control']) !!}
@@ -196,7 +202,19 @@
                         {!! Form::text('mobile',null,['class' => 'form-control']) !!}
 
                     </div>
+                    <div class="col-md-4 form-group {{ $errors->has('skype') ? 'has-error' : '' }}">
+                        <!-- mobile -->
+                        {!! Form::label('skype','Skype') !!}
+                        {!! Form::text('skype',null,['class' => 'form-control']) !!}
 
+                    </div>
+                    
+                    <div class="col-md-4 form-group {{ $errors->has('manager') ? 'has-error' : '' }}">
+                        <!-- mobile -->
+                        {!! Form::label('manager','Manager') !!}
+                        {!! Form::select('manager',$managers,null,['class' => 'form-control']) !!}
+
+                    </div>
 
                 </div>
                 {!! Form::close() !!}

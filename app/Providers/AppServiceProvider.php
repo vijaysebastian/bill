@@ -31,5 +31,6 @@ class AppServiceProvider extends ServiceProvider
             'Illuminate\Contracts\Auth\Registrar',
             'App\Services\Registrar'
         );
+        require_once __DIR__ . '/../Http/helpers.php';
     }
 }

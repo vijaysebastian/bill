@@ -65,15 +65,15 @@ class OrderController extends Controller {
      * @return Response
      */
     public function index(Request $request) {
-        $validator = \Validator::make($request->all(), [
-                    'domain' => 'url',
-        ]);
+//        $validator = \Validator::make($request->all(), [
+//                    'domain' => 'url',
+//        ]);
 
-        if ($validator->fails()) {
-            return redirect('orders')
-                            ->withErrors($validator)
-                            ->withInput();
-        }
+//        if ($validator->fails()) {
+//            return redirect('orders')
+//                            ->withErrors($validator)
+//                            ->withInput();
+//        }
         try {
             $products = $this->product->where('id', '!=', 1)->lists('name', 'id')->toArray();
             $order_no = $request->input('order_no');
@@ -514,9 +514,9 @@ class OrderController extends Controller {
     }
 
     public function domainChange(Request $request) {
-        $this->validate($request, [
-            'domain' => 'url',
-        ]);
+//        $this->validate($request, [
+//            'domain' => 'url',
+//        ]);
         $domain = $request->input('domain');
         $id = $request->input('id');
         $order = $this->order->find($id);
@@ -577,7 +577,7 @@ class OrderController extends Controller {
             if (str_finish($domain, '/')) {
                 $domain = substr_replace($domain, '', -1, 0);
             }
-            $join = $join->where('domain', $domain);
+            $join = $join->where('domain','LIKE' ,'%'.$domain.'%');
         }
 
         $join = $join->select('orders.id', 'orders.created_at', 'client', 'price_override', 'order_status', 'number', 'serial_key');

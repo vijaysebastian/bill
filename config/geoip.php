@@ -36,14 +36,14 @@ return [
      */
 
     'default_location' => [
-//        'ip'          => '122.172.214.100',
-//        'isoCode'     => 'IN',
-//        'country'     => 'India',
-//        'city'        => 'Bengaluru',
-//        'state'       => 'KA',
-        //'postal_code' => 560076,
-//        'lat'         => 12.9833,
-//        'lon'         => 77.5833,
+        'ip'          => '72.229.28.185',
+        'isoCode'     => 'US',
+        'country'     => 'United States',
+        'city'        => 'New York',
+        'state'       => 'New York',
+        'postal_code' => 10036,
+        'lat'         => 40.7605,
+        'lon'         => -73.9933,
         'timezone'    => 'Asia/Kolkata',
 //        'continent'   => 'AS',
 //        'default'     => false,

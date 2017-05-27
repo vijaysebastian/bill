@@ -159,6 +159,7 @@ class TemplateTypeTableSeeder extends Seeder
         TemplateType::create(['id' => 5, 'name' => 'subscription_over']);
         TemplateType::create(['id' => 6, 'name' => 'invoice']);
         TemplateType::create(['id' => 7, 'name' => 'cart']);
+        TemplateType::create(['id' => 8, 'name' => 'manager_email']);
     }
 }
 

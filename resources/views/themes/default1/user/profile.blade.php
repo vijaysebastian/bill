@@ -179,6 +179,12 @@
 
                     </div>
                 </div>
+                <div class="form-group {{ $errors->has('skype') ? 'has-error' : '' }}">
+                    <!-- mobile -->
+                    {!! Form::label('skype','skype') !!}
+                    {!! Form::text('skype',null,['class' => 'form-control']) !!}
+
+                </div>
                 <div class="form-group {{ $errors->has('zip') ? 'has-error' : '' }}">
                     <!-- mobile -->
                     {!! Form::label('zip',Lang::get('message.zip')) !!}

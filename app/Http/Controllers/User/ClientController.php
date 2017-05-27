@@ -79,10 +79,16 @@ class ClientController extends Controller {
                         ->showColumns('email', 'created_at')
                         ->addColumn('active', function ($model) {
                             if ($model->active == 1) {
-                                return "<span style='color:green'>Activated</span>";
+                                $email = "<span class='glyphicon glyphicon-envelope' style='color:green' title='verified email'></span>";
                             } else {
-                                return "<span style='color:red'>Not activated</span>";
+                                $email = "<span class='glyphicon glyphicon-envelope' style='color:red' title='unverified email'></span>";
                             }
+                            if ($model->mobile_verified == 1) {
+                                $mobile = "<span class='glyphicon glyphicon-phone' style='color:green' title='verified mobile'></span>";
+                            } else {
+                                $mobile = "<span class='glyphicon glyphicon-phone' style='color:red' title='unverified mobile'></span>";
+                            }
+                            return $email."&nbsp;&nbsp;".$mobile;
                         })
                         ->addColumn('action', function ($model) {
                             return '<a href=' . url('clients/' . $model->id . '/edit') . " class='btn btn-sm btn-primary'>Edit</a>"
@@ -102,7 +108,8 @@ class ClientController extends Controller {
         $timezones = new \App\Model\Common\Timezone();
         $timezones = $timezones->lists('name', 'id')->toArray();
         $bussinesses = \App\Model\Common\Bussiness::lists('name','short')->toArray();
-        return view('themes.default1.user.client.create', compact('timezones','bussinesses'));
+        $managers = User::where('role','admin')->where('position','manager')->pluck('first_name','id')->toArray();
+        return view('themes.default1.user.client.create', compact('timezones','bussinesses','managers'));
     }
 
     /**
@@ -162,10 +169,11 @@ class ClientController extends Controller {
             $timezones = $timezones->lists('name', 'id')->toArray();
 
             $state = \App\Http\Controllers\Front\CartController::getStateByCode($user->state);
+                    $managers = User::where('role','admin')->where('position','manager')->pluck('first_name','id')->toArray();
 
             $states = \App\Http\Controllers\Front\CartController::findStateByRegionId($user->country);
             $bussinesses = \App\Model\Common\Bussiness::lists('name','short')->toArray();
-            return view('themes.default1.user.client.edit', compact('bussinesses','user', 'timezones', 'state', 'states'));
+            return view('themes.default1.user.client.edit', compact('bussinesses','user', 'timezones', 'state', 'states','managers'));
         } catch (\Exception $ex) {
             return redirect()->back()->with('fails', $ex->getMessage());
         }
@@ -268,7 +276,7 @@ class ClientController extends Controller {
             $join = $join->where('company_size', $company_size);
         }
 
-        $join = $join->select('id', 'first_name', 'last_name', 'email', 'created_at', 'active');
+        $join = $join->select('id', 'first_name', 'last_name', 'email', 'created_at', 'active','mobile_verified');
 
 
         return $join;

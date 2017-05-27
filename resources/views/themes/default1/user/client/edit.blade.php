@@ -94,7 +94,7 @@
                         {!! Form::text('company',null,['class' => 'form-control']) !!}
 
                     </div>
-                    <div class="col-md-4 form-group {{ $errors->has('bussiness') ? 'has-error' : '' }}">
+                    <div class="col-md-3 form-group {{ $errors->has('bussiness') ? 'has-error' : '' }}">
                         <!-- company -->
                         {!! Form::label('bussiness','Industry',['class'=>'required']) !!}
                         {!! Form::select('bussiness',[''=>'Select','Industries'=>$bussinesses],null,['class' => 'form-control']) !!}
@@ -102,10 +102,16 @@
                     </div>
 
 
-                    <div class="col-md-4 form-group {{ $errors->has('active') ? 'has-error' : '' }}">
+                    <div class="col-md-2 form-group {{ $errors->has('active') ? 'has-error' : '' }}">
                         <!-- mobile -->
-                        {!! Form::label('active',Lang::get('message.active')) !!}
+                        {!! Form::label('active',Lang::get('message.email')) !!}
                         <p>{!! Form::radio('active',1,true) !!}&nbsp;Active&nbsp;&nbsp;{!! Form::radio('active',0) !!}&nbsp;Inactive</p>
+
+                    </div>
+                    <div class="col-md-2 form-group {{ $errors->has('mobile_verified') ? 'has-error' : '' }}">
+                        <!-- mobile -->
+                        {!! Form::label('mobile_verified',Lang::get('message.mobile')) !!}
+                        <p>{!! Form::radio('mobile_verified',1,true) !!}&nbsp;Active&nbsp;&nbsp;{!! Form::radio('mobile_verified',0) !!}&nbsp;Inactive</p>
 
                     </div>
                 </div>
@@ -116,17 +122,23 @@
                         {!! Form::select('role',['user'=>'User','admin'=>'Admin'],null,['class' => 'form-control']) !!}
 
                     </div>
+                    <div class="col-md-3 form-group {{ $errors->has('position') ? 'has-error' : '' }}">
+                        <!-- email -->
+                        {!! Form::label('position','Position') !!}
+                        {!! Form::select('position',[''=>'Select','manager'=>'Manager'],null,['class' => 'form-control']) !!}
+
+                    </div>
                     <?php
                     $type = DB::table('company_types')->pluck('name','short');
                     $size = DB::table('company_sizes')->pluck('name','short');
                     ?>
-                     <div class="col-md-4 form-group {{ $errors->has('company_type') ? 'has-error' : '' }}">
+                     <div class="col-md-3 form-group {{ $errors->has('company_type') ? 'has-error' : '' }}">
                         <!-- email -->
                         {!! Form::label('company_type','Company Type',['class'=>'required']) !!}
                         {!! Form::select('company_type',[''=>'Select','Company Types'=>$type],null,['class' => 'form-control']) !!}
 
                     </div>
-                     <div class="col-md-4 form-group {{ $errors->has('company_size') ? 'has-error' : '' }}">
+                     <div class="col-md-3 form-group {{ $errors->has('company_size') ? 'has-error' : '' }}">
                         <!-- email -->
                         {!! Form::label('company_size','Company Size',['class'=>'required']) !!}
                         {!! Form::select('company_size',[''=>'Select','Company Sizes'=>$size],null,['class' => 'form-control']) !!}
@@ -204,6 +216,20 @@
                         {!! Form::text('mobile',null,['class' => 'form-control']) !!}
 
                     </div>
+                    <div class="col-md-4 form-group {{ $errors->has('skype') ? 'has-error' : '' }}">
+                        <!-- mobile -->
+                        {!! Form::label('skype','Skype') !!}
+                        {!! Form::text('skype',null,['class' => 'form-control']) !!}
+
+                    </div>
+                    @if($user->role=='user')
+                    <div class="col-md-4 form-group {{ $errors->has('manager') ? 'has-error' : '' }}">
+                        <!-- mobile -->
+                        {!! Form::label('manager','Manager') !!}
+                        {!! Form::select('manager',[''=>'Select','Managers'=>$managers],null,['class' => 'form-control']) !!}
+
+                    </div>
+                    @endif
                 </div>
                 {!! Form::close() !!}
             </div>

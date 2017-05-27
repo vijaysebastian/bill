@@ -41,6 +41,10 @@ class CreateUsersTable extends Migration {
 			$table->string('remember_token', 100)->nullable();
                         $table->string('country')->default('IN');
                         $table->string('ip')->nullable();
+                        $table->integer('mobile_verified');
+                        $table->string('position')->nullable();
+                        $table->string('skype')->nullable();
+                        $table->integer('manager')->nullable();
 			$table->timestamps();
 			
 		});
