@@ -287,7 +287,6 @@ $mobile_code = \App\Http\Controllers\Front\CartController::getMobileCodeByIso($l
         var val = $("#country").val();
         getCountryAttr(val);
     });
-
     function getCountryAttr(val) {
         getState(val);
         getCode(val);
@@ -296,12 +295,13 @@ $mobile_code = \App\Http\Controllers\Front\CartController::getMobileCodeByIso($l
     }
 
     function getState(val) {
-
-
         $.ajax({
             type: "POST",
             url: "{{url('get-state')}}",
-            data: 'country_id=' + val,
+            data: {
+                "_token": "{{ csrf_token() }}",
+                "country_id": val
+            },
             success: function (data) {
                 $("#state-list").html(data);
             }
@@ -311,7 +311,10 @@ $mobile_code = \App\Http\Controllers\Front\CartController::getMobileCodeByIso($l
         $.ajax({
             type: "GET",
             url: "{{url('get-code')}}",
-            data: 'country_id=' + val,
+            data: {
+                "_token": "{{ csrf_token() }}",
+                "country_id": val
+            },
             success: function (data) {
                 $("#mobile_code").val(data);
                 $("#mobile_code_hidden").val(data);
@@ -322,7 +325,10 @@ $mobile_code = \App\Http\Controllers\Front\CartController::getMobileCodeByIso($l
         $.ajax({
             type: "GET",
             url: "{{url('get-currency')}}",
-            data: 'country_id=' + val,
+            data: {
+                "_token": "{{ csrf_token() }}",
+                "country_id": val
+            },
             success: function (data) {
                 $("#currency").val(data);
             }

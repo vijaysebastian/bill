@@ -78,7 +78,6 @@ class Handler extends ExceptionHandler {
     public function render500($request, $e) {
         
         //$this->mail($request, $e);
-        
         if (Config('app.debug') == true) {
             return parent::render($request, $e);
         }

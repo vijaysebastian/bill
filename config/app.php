@@ -13,7 +13,7 @@ return [
       | application. If disabled, a simple generic error page is shown.
       |
      */
-    'debug' => true,
+    'debug' => env('APP_DEBUG', true),
     /*
       |--------------------------------------------------------------------------
       | Application URL
@@ -24,7 +24,7 @@ return [
       | your application so that it is used when running Artisan tasks.
       |
      */
-    'url' => 'http://localhost',
+    'url' => env('APP_URL', 'http://localhost'),
     /*
       |--------------------------------------------------------------------------
       | Application Timezone
@@ -99,9 +99,6 @@ return [
          * Payment Gateways
          */
 
-'App\Plugins\Paypal\ServiceProvider',
-
-'App\Plugins\Ccavanue\ServiceProvider',
         /*
          * Laravel Framework Service Providers...
          */
@@ -147,6 +144,8 @@ return [
         'Illuminate\Broadcasting\BroadcastServiceProvider',
         Mailchimp\MailchimpServiceProvider::class,
         'Torann\GeoIP\GeoIPServiceProvider',
+        Way\Generators\GeneratorsServiceProvider::class,
+        Xethron\MigrationsGenerator\MigrationsGeneratorServiceProvider::class,
 
     ],
     /*
