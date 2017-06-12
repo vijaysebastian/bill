@@ -525,6 +525,7 @@ class ComposerStaticInita78728cf2724979b73ef3507346831a2
         'Frame_Factory' => __DIR__ . '/..' . '/dompdf/dompdf/include/frame_factory.cls.php',
         'Frame_Reflower' => __DIR__ . '/..' . '/dompdf/dompdf/include/frame_reflower.cls.php',
         'Frame_Tree' => __DIR__ . '/..' . '/dompdf/dompdf/include/frame_tree.cls.php',
+        'FrontPageSeeder' => __DIR__ . '/../..' . '/database/seeds/FrontPageSeeder.php',
         'GD_Adapter' => __DIR__ . '/..' . '/dompdf/dompdf/include/gd_adapter.cls.php',
         'GitHubTableSeeder' => __DIR__ . '/../..' . '/database/seeds/DatabaseSeeder.php',
         'GroupTableSeeder' => __DIR__ . '/../..' . '/database/seeds/DatabaseSeeder.php',

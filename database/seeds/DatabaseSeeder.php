@@ -58,6 +58,7 @@ class DatabaseSeeder extends Seeder
         $this->call(CompanySize::class);
         $this->call(CompanyType::class);
         $this->call(SettingsSeeder::class);
+        $this->call(FrontPageSeeder::class);
         
         \DB::unprepared(file_get_contents(storage_path('agora.sql')));
         \DB::unprepared(file_get_contents(storage_path('states.sql')));

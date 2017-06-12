@@ -138,6 +138,7 @@ return array(
     'Frame_Factory' => $vendorDir . '/dompdf/dompdf/include/frame_factory.cls.php',
     'Frame_Reflower' => $vendorDir . '/dompdf/dompdf/include/frame_reflower.cls.php',
     'Frame_Tree' => $vendorDir . '/dompdf/dompdf/include/frame_tree.cls.php',
+    'FrontPageSeeder' => $baseDir . '/database/seeds/FrontPageSeeder.php',
     'GD_Adapter' => $vendorDir . '/dompdf/dompdf/include/gd_adapter.cls.php',
     'GitHubTableSeeder' => $baseDir . '/database/seeds/DatabaseSeeder.php',
     'GroupTableSeeder' => $baseDir . '/database/seeds/DatabaseSeeder.php',
